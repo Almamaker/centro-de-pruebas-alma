@@ -609,11 +609,11 @@
   <button class="nav-btn active" onclick="showTab('proyecto', this)">
     <i class="fa-solid fa-rocket"></i> Proyecto
   </button>
-  <button class="nav-btn" onclick="showTab('agenda', this)">
-    <i class="fa-solid fa-calendar-days"></i> Agenda
-  </button>
   <button class="nav-btn" onclick="showTab('participantes', this)">
     <i class="fa-solid fa-users"></i> Participantes
+  </button>
+  <button class="nav-btn" onclick="showTab('agenda', this)">
+    <i class="fa-solid fa-calendar-days"></i> Agenda
   </button>
   <button class="nav-btn" onclick="showTab('roles', this)">
     <i class="fa-solid fa-shield-halved"></i> Roles y Soporte
@@ -765,7 +765,7 @@
   </div>
   <div class="roles-grid">
     <div class="role-card">
-      <div class="role-icon"><i class="fa-solid fa-award"></i></div>
+      <div class="role-icon"><img src="embajador.png" alt="Embajador" style="width:48px;height:48px;object-fit:contain;"></div>
       <h3>Embajador</h3>
       <ul>
         <li>Representa al área en el proceso de pruebas</li>
@@ -775,8 +775,8 @@
       </ul>
     </div>
     <div class="role-card">
-      <div class="role-icon"><i class="fa-solid fa-flask-vial"></i></div>
-      <h3>Tester / Key User</h3>
+      <div class="role-icon"><img src="tester.png" alt="Tester" style="width:48px;height:48px;object-fit:contain;"></div>
+      <h3>Tester</h3>
       <ul>
         <li>Ejecuta los casos de prueba asignados</li>
         <li>Registra hallazgos en la herramienta definida</li>
@@ -785,7 +785,7 @@
       </ul>
     </div>
     <div class="role-card">
-      <div class="role-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+      <div class="role-icon"><img src="gestorpruebas.png" alt="Gestor de Prueba" style="width:48px;height:48px;object-fit:contain;"></div>
       <h3>Gestor de Prueba</h3>
       <ul>
         <li>Coordina la ejecución del plan de pruebas</li>
@@ -795,13 +795,30 @@
       </ul>
     </div>
     <div class="role-card">
-      <div class="role-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-      <h3>Equipo CDA / Consultor</h3>
+      <div class="role-icon"><img src="equipoCDA.png" alt="Equipo CDA" style="width:48px;height:48px;object-fit:contain;"></div>
+      <h3>Equipo CDA</h3>
       <ul>
-        <li>Brinda soporte técnico durante las pruebas</li>
-        <li>Resuelve incidencias en SAP RISE</li>
-        <li>Acompaña la ejecución de pruebas críticas</li>
-        <li>Documenta soluciones técnicas</li>
+        <li>Coordina torres funcionales, técnicas e integraciones</li>
+        <li>Acompaña la correcta ejecución funcional de las pruebas</li>
+        <li>Asegura visión end-to-end de flujos de procesos</li>
+      </ul>
+    </div>
+    <div class="role-card">
+      <div class="role-icon"><img src="consultores.png" alt="Consultor Técnico" style="width:48px;height:48px;object-fit:contain;"></div>
+      <h3>Consultor Técnico</h3>
+      <ul>
+        <li>Ejecutan pruebas unitarias</li>
+        <li>Atienden incidentes técnicos</li>
+        <li>Garantiza disponibilidad del sistema</li>
+        <li>Acompaña pruebas</li>
+      </ul>
+    </div>
+    <div class="role-card">
+      <div class="role-icon"><img src="seguridad.png" alt="Seguridad" style="width:48px;height:48px;object-fit:contain;"></div>
+      <h3>Seguridad</h3>
+      <ul>
+        <li>Brinda soporte en temas de seguridad en el sistema</li>
+        <li>Garantiza roles y accesos de los participantes</li>
       </ul>
     </div>
   </div>
