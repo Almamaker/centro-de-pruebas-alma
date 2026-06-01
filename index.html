@@ -607,7 +607,10 @@
 <div class="nav-wrapper">
   <div class="nav-arrow"><i class="fa-solid fa-chevron-left"></i></div>
   <nav class="nav">
-  <button class="nav-btn active" onclick="showTab('agenda', this)">
+  <button class="nav-btn active" onclick="showTab('proyecto', this)">
+    <i class="fa-solid fa-rocket"></i> Proyecto
+  </button>
+  <button class="nav-btn" onclick="showTab('agenda', this)">
     <i class="fa-solid fa-calendar-days"></i> Agenda
   </button>
   <button class="nav-btn" onclick="showTab('participantes', this)">
@@ -624,7 +627,7 @@
 </div>
 
 <!-- ══ AGENDA ══ -->
-<div id="agenda" class="section active">
+<div id="agenda" class="section">
   <div class="sec-header">
     <div class="sec-icon"><i class="fa-solid fa-calendar-days"></i></div>
     <div>
@@ -919,6 +922,38 @@
   <div class="ig-tt-row"><span class="ig-tt-label">Fecha:</span><span class="ig-tt-val" id="tt-fecha"></span></div>
   <div class="ig-tt-row"><span class="ig-tt-label">Embajador:</span><span class="ig-tt-val" id="tt-emb"></span></div>
   <div class="ig-tt-row"><span class="ig-tt-label">Testers:</span><span class="ig-tt-val" id="tt-test"></span></div>
+</div>
+
+<!-- ══ PROYECTO ══ -->
+<div id="proyecto" class="section active">
+  <div class="sec-header">
+    <div class="sec-icon"><i class="fa-solid fa-rocket"></i></div>
+    <div>
+      <h2>Proyecto</h2>
+      <p>Contexto estratégico y cronograma del proyecto SAP RISE</p>
+    </div>
+  </div>
+
+  <div style="background:white;border-radius:14px;border:1.5px solid var(--borde);padding:32px 36px;margin-bottom:32px;box-shadow:0 2px 8px rgba(10,47,107,0.05);">
+    <h3 style="font-family:'Nunito',sans-serif;font-size:26px;font-weight:900;color:var(--az-oscuro);margin-bottom:20px;display:flex;align-items:center;gap:12px;">
+      <span style="background:var(--az-principal);color:white;padding:6px 16px;border-radius:8px;font-size:18px;">SAP RISE</span>
+      <img src="saprise.png" alt="SAP RISE" style="height:48px;object-fit:contain;">
+    </h3>
+    <p style="font-size:14.5px;color:var(--texto-sec);line-height:1.85;margin-bottom:18px;">
+      El proyecto <strong style="color:var(--az-oscuro)">SAP RISE de Alpina</strong> es una iniciativa estratégica de transformación tecnológica orientada a modernizar la plataforma SAP y fortalecer la continuidad operativa del negocio. A través de este programa, Alpina avanza hacia un modelo más flexible, escalable y sostenible, migrando su landscape SAP a la nube privada de SAP RISE y preparando la organización para operar bajo nuevas capacidades tecnológicas, mejores prácticas y un esquema de soporte especializado.
+    </p>
+    <p style="font-size:14.5px;color:var(--texto-sec);line-height:1.85;margin-bottom:18px;">
+      Más que una migración tecnológica, <strong style="color:var(--az-oscuro)">SAP RISE representa un paso relevante en la evolución digital de Alpina</strong>. Su propósito es asegurar que los procesos críticos del negocio continúen operando de forma estable, que los equipos estén preparados para los momentos clave del proyecto, pruebas, cutover, salida en vivo e hiper care, y que la organización cuente con el conocimiento, los canales de soporte y la información necesaria para adoptar el nuevo modelo de operación.
+    </p>
+    <p style="font-size:14.5px;color:var(--texto-sec);line-height:1.85;font-weight:600;">
+      A continuación, el cronograma del proyecto para el año 2026:
+    </p>
+  </div>
+
+  <div style="text-align:center;">
+    <img src="cronograma.png" alt="Cronograma del proyecto 2026"
+      style="max-width:100%;border-radius:14px;border:1.5px solid var(--borde);box-shadow:0 4px 16px rgba(10,47,107,0.10);">
+  </div>
 </div>
 
 <footer>
