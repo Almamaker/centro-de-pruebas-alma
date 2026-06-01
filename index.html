@@ -594,10 +594,7 @@
       "Cada prueba cuenta. Cada rol suma. Cada hallazgo nos acerca a una operación más segura."
     </p>
     <div class="hero-pills">
-      <span class="pill"><i class="fa-solid fa-location-dot"></i> Colombia</span>
-      <span class="pill"><i class="fa-solid fa-location-dot"></i> Ecuador</span>
-      <span class="pill"><i class="fa-solid fa-location-dot"></i> Venezuela</span>
-      <span class="pill"><i class="fa-solid fa-calendar"></i> Mayo – Junio 2026</span>
+      <img src="logos.png" alt="Logos" style="max-height:70px;object-fit:contain;">
     </div>
   </div>
 </section>
@@ -1063,7 +1060,10 @@ filas.forEach(f => {
       td.style.padding = '6px 4px';
       const areaMap = {'Integraciones independientes':'finanzas','Cierre financiero':'finanzas','Nómina y gastos de viaje':'nomina','Datos maestros':'finanzas','Operaciones':'operaciones','Comercial':'comercial','Retail':'retail','Validaciones financieras':'finanzas'};
       const areaKey = areaMap[f.label] || 'finanzas';
-      td.innerHTML = `<div class="g-bar ${f.cls}" style="cursor:pointer" title="Ver detalle" onclick="navToCronograma('${areaKey}')">${f.label}</div>`;
+      const isIntegraciones = f.label === "Integraciones independientes";
+      td.innerHTML = isIntegraciones
+        ? `<div class="g-bar ${f.cls}" style="cursor:default">${f.label}</div>`
+        : `<div class="g-bar ${f.cls}" style="cursor:pointer" title="Ver detalle" onclick="navToCronograma('${areaKey}')">${f.label}</div>`;
       tr.appendChild(td);
       i = f.fin + 1;
     } else {
