@@ -401,6 +401,13 @@
     font-size:11px;color:var(--texto-sec);
     display:flex;align-items:center;gap:6px;
   }
+  .acc-item .ai-fecha {
+    background:var(--az-principal);color:white;
+    padding:5px 11px;border-radius:100px;
+    font-size:11px;font-weight:700;
+    display:inline-flex;align-items:center;gap:5px;
+    flex-shrink:0;white-space:nowrap;
+  }
   .acc-empty {
     text-align:center;padding:40px 20px;
     color:var(--texto-sec);font-size:14px;
@@ -798,20 +805,8 @@
     <button class="fbtn active" onclick="filtrar('todos',this)">
       <i class="fa-solid fa-table-cells"></i> Todos
     </button>
-    <button class="fbtn" onclick="filtrar('Finanzas',this)">
-      <i class="fa-solid fa-coins"></i> Finanzas
-    </button>
-    <button class="fbtn" onclick="filtrar('Operaciones',this)">
-      <i class="fa-solid fa-gear"></i> Operaciones
-    </button>
-    <button class="fbtn" onclick="filtrar('Nómina',this)">
-      <i class="fa-solid fa-file-invoice"></i> Nómina
-    </button>
-    <button class="fbtn" onclick="filtrar('Comercial',this)">
-      <i class="fa-solid fa-store"></i> Comercial
-    </button>
-    <button class="fbtn" onclick="filtrar('Retail',this)">
-      <i class="fa-solid fa-cart-shopping"></i> Retail
+    <button class="fbtn" onclick="filtrarPais('Colombia',this)">
+      <i class="fa-solid fa-location-dot"></i> Colombia
     </button>
     <button class="fbtn" onclick="filtrarPais('Ecuador',this)">
       <i class="fa-solid fa-location-dot"></i> Ecuador
@@ -1053,18 +1048,175 @@
 const avColors = ['#1A6FBF','#0E4E99','#4A90D9','#0A2F6B','#2A7AB0','#3A60A0'];
 
 const participantes = [
-  { nombre:"Ana García",     rol:"Embajador",        area:"Finanzas",    pais:"Colombia" },
-  { nombre:"Carlos Mora",    rol:"Tester",            area:"Finanzas",    pais:"Colombia" },
-  { nombre:"Luisa Torres",   rol:"Key User",          area:"Operaciones", pais:"Colombia" },
-  { nombre:"Pedro Salinas",  rol:"Embajador",         area:"Operaciones", pais:"Ecuador"  },
-  { nombre:"Daniela Rojas",  rol:"Tester",            area:"Nómina",      pais:"Colombia" },
-  { nombre:"Mario Vega",     rol:"Gestor de Prueba",  area:"Nómina",      pais:"Colombia" },
-  { nombre:"Sofía Mendez",   rol:"Key User",          area:"Comercial",   pais:"Venezuela"},
-  { nombre:"Andrés Ruiz",    rol:"Tester",            area:"Comercial",   pais:"Ecuador"  },
-  { nombre:"Valentina Cruz", rol:"Embajador",         area:"Retail",      pais:"Colombia" },
-  { nombre:"Jorge Pinto",    rol:"Tester",            area:"Retail",      pais:"Colombia" },
-  { nombre:"Marcela León",   rol:"Consultor CDA",     area:"Finanzas",    pais:"Colombia" },
-  { nombre:"Sebastián Gil",  rol:"Tester",            area:"Operaciones", pais:"Venezuela"},
+  { nombre:"Laura Valentina Hoyos Arias", rol:"Embajador", area:"Finanzas", pais:"Colombia", fecha:"10 Jun, 11 Jun" },
+  { nombre:"Manuela Castañeda Stozitzky", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"10 Jun, 11 Jun" },
+  { nombre:"Santiago Gallego López", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"10 Jun, 11 Jun" },
+  { nombre:"Laura Vanessa Ochoa Rojas", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"10 Jun, 11 Jun" },
+  { nombre:"Sebastián Gross De Angulo", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"10 Jun, 11 Jun" },
+  { nombre:"Juan Diego Ávila Bernate", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"10 Jun, 11 Jun" },
+  { nombre:"Deisy Mayerli Quevedo Medina", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"10 Jun, 11 Jun" },
+  { nombre:"Gabriela Carvajal", rol:"Tester", area:"Finanzas", pais:"Ecuador", fecha:"11 Jun, 12 Jun" },
+  { nombre:"Kleber Tasiguano", rol:"Tester", area:"Finanzas", pais:"Ecuador", fecha:"11 Jun, 12 Jun" },
+  { nombre:"Isaac Pilla", rol:"Tester", area:"Finanzas", pais:"Ecuador", fecha:"11 Jun, 12 Jun" },
+  { nombre:"Gabriela Tinajero", rol:"Tester", area:"Finanzas", pais:"Ecuador", fecha:"11 Jun, 12 Jun" },
+  { nombre:"Yaneth Orjuela", rol:"Embajador", area:"Finanzas", pais:"Colombia", fecha:"9 Jun, 10 Jun" },
+  { nombre:"Yeraldine Monroy", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"10 Jun" },
+  { nombre:"Nathalia Castañeda Perez", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"9 Jun" },
+  { nombre:"John Alexander Velasquez", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"9 Jun, 10 Jun, 11 Jun, 12 Jun" },
+  { nombre:"Karen Andres Garcia", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"9 Jun, 10 Jun, 11 Jun, 12 Jun" },
+  { nombre:"Sandra Chacón", rol:"Embajador", area:"Finanzas", pais:"Colombia", fecha:"9 Jun, 10 Jun, 11 Jun, 12 Jun" },
+  { nombre:"Marcela Buitrago", rol:"Embajador", area:"Finanzas", pais:"Colombia", fecha:"9 Jun, 10 Jun, 11 Jun" },
+  { nombre:"Juan Intencipa", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"10 Jun" },
+  { nombre:"Mario Guzman", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"9 Jun" },
+  { nombre:"Jhon Tinjaca", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"11 Jun" },
+  { nombre:"Sebastian Santamaria", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"12 Jun, Junio 16 - Junio 30" },
+  { nombre:"Carol Parra", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"12 Jun" },
+  { nombre:"Yesenia Monroy", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"12 Jun, Junio 16 - Junio 30" },
+  { nombre:"Karen Mateus", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"12 Jun, Junio 16 - Junio 30" },
+  { nombre:"Brayan Casallas", rol:"Embajador", area:"Finanzas", pais:"Colombia", fecha:"9 Jun, 10 Jun, 11 Jun, 12 Jun" },
+  { nombre:"Juliana Rico", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"10 Jun, 11 Jun, 12 Jun" },
+  { nombre:"Evellyn Giraldo", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"12 Jun, Junio 16 - Junio 30" },
+  { nombre:"Omar Nieto", rol:"Embajador", area:"Finanzas", pais:"Colombia", fecha:"10 Jun, 11 Jun, 12 Jun" },
+  { nombre:"Martha López", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"9 Jun" },
+  { nombre:"Julieth Sánchez", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"9 Jun, Junio 16 - Junio 30" },
+  { nombre:"Luisa Prada", rol:"Embajador", area:"Finanzas", pais:"Colombia", fecha:"9 Jun" },
+  { nombre:"Yenny jimenez", rol:"Embajador", area:"Finanzas", pais:"Colombia", fecha:"9 Jun" },
+  { nombre:"Alejandro Horta", rol:"Embajador", area:"Finanzas", pais:"Colombia", fecha:"9 Jun, 10 Jun, Junio 16 - Junio 30" },
+  { nombre:"Monica Rivera", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"9 Jun" },
+  { nombre:"Diego Correa", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"9 Jun, 10 Jun" },
+  { nombre:"Angye Puentes", rol:"Embajador", area:"Finanzas", pais:"Colombia", fecha:"9 Jun, 10 Jun" },
+  { nombre:"Alexis Pérez", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"9 Jun, 10 Jun, Junio 16 - Junio 30" },
+  { nombre:"Dora Rodriguez", rol:"Embajador", area:"Finanzas", pais:"Colombia", fecha:"9 Jun, 10 Jun" },
+  { nombre:"Jorge Rey", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"9 Jun" },
+  { nombre:"Raúl Hernandez", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"9 Jun" },
+  { nombre:"Marco Espinel", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"9 Jun, 10 Jun" },
+  { nombre:"Angie Gabriela González Camacho", rol:"Embajador", area:"Finanzas", pais:"Colombia", fecha:"9 Jun, 10 Jun, 11 Jun, 12 Jun" },
+  { nombre:"Erik Fabian Bello", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"12 Jun" },
+  { nombre:"Ivonne Suárez", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"9 Jun" },
+  { nombre:"Diana Julieth Garnica", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"9 Jun" },
+  { nombre:"Sandra Milena Cortes", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"10 Jun, 11 Jun" },
+  { nombre:"Leidy Carolina Torres", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"10 Jun" },
+  { nombre:"Juan Camilo Puentes Valencia", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"10 Jun" },
+  { nombre:"Ginneth Lorena Benito", rol:"Tester", area:"Finanzas", pais:"Colombia", fecha:"10 Jun, Junio 16 - Junio 30" },
+  { nombre:"Patricia Vera", rol:"Embajador", area:"Nómina", pais:"Colombia", fecha:"9 Jun, 12 Jun, 16 Jun" },
+  { nombre:"Monica Poveda", rol:"Tester", area:"Nómina", pais:"Colombia", fecha:"9 Jun, 12 Jun, 16 Jun" },
+  { nombre:"Andres Vargas", rol:"Tester", area:"Nómina", pais:"Colombia", fecha:"9 Jun, 12 Jun, 16 Jun" },
+  { nombre:"Leydi Gomez", rol:"Tester", area:"Nómina", pais:"Colombia", fecha:"9 Jun, 12 Jun, 16 Jun" },
+  { nombre:"Alexandra Rojas", rol:"Tester", area:"Nómina", pais:"Colombia", fecha:"9 Jun, 12 Jun, 16 Jun" },
+  { nombre:"Angela Delgado", rol:"Tester", area:"Nómina", pais:"Colombia", fecha:"9 Jun, 12 Jun, 16 Jun" },
+  { nombre:"Paola Salamanca", rol:"Tester", area:"Nómina", pais:"Colombia", fecha:"9 Jun, 12 Jun, 16 Jun" },
+  { nombre:"Danna Avila", rol:"Tester", area:"Nómina", pais:"Colombia", fecha:"9 Jun, 12 Jun, 16 Jun" },
+  { nombre:"Bibiana Chaparro", rol:"Tester", area:"Nómina", pais:"Colombia", fecha:"9 Jun, 12 Jun, 16 Jun" },
+  { nombre:"Andre Toledo", rol:"Tester", area:"Nómina", pais:"Colombia", fecha:"9 Jun, 12 Jun, 16 Jun" },
+  { nombre:"Néstor Camilo Pacheco", rol:"Embajador", area:"Operaciones", pais:"Colombia", fecha:"16 Jun" },
+  { nombre:"Leydy Rodríguez", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"16 Jun" },
+  { nombre:"Camilo Andrés Borda", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"16 Jun" },
+  { nombre:"Juan Carlos Lancheros", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"16 Jun" },
+  { nombre:"José Zambrano", rol:"Embajador", area:"Operaciones", pais:"Colombia", fecha:"18 Jun" },
+  { nombre:"Diego Antivar", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"16 Jun, 18 Jun" },
+  { nombre:"Oscar Silva", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"18 Jun" },
+  { nombre:"María Camila Camacho", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"16 Jun" },
+  { nombre:"Juan Carlos Berrio", rol:"Embajador", area:"Operaciones", pais:"Colombia", fecha:"Por definir" },
+  { nombre:"Adrián Mazo", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"16 Jun" },
+  { nombre:"Hosman Pinto", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"16 Jun" },
+  { nombre:"Daniel Huertas", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"16 Jun" },
+  { nombre:"Carlos Cruz", rol:"Embajador", area:"Operaciones", pais:"Colombia", fecha:"Por definir" },
+  { nombre:"Juan Camillo Guerra", rol:"Embajador", area:"Operaciones", pais:"Colombia", fecha:"Por definir" },
+  { nombre:"Elizabeth Cuevas", rol:"Embajador", area:"Operaciones", pais:"Colombia", fecha:"16 Jun" },
+  { nombre:"Monica Paola Guayacan", rol:"Embajador", area:"Operaciones", pais:"Colombia", fecha:"16 Jun" },
+  { nombre:"Dani Cardona", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"16 Jun" },
+  { nombre:"Alejandro Velez", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"16 Jun" },
+  { nombre:"Felipe Torres", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"16 Jun" },
+  { nombre:"Martha Ballen", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"16 Jun" },
+  { nombre:"Mariana Tellez", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"16 Jun" },
+  { nombre:"Amy López", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"16 Jun" },
+  { nombre:"Santiago Gomez", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"16 Jun" },
+  { nombre:"Sebastian Baena", rol:"Embajador", area:"Operaciones", pais:"Colombia", fecha:"Por definir" },
+  { nombre:"Alejandro Hernandez", rol:"Embajador", area:"Operaciones", pais:"Colombia", fecha:"Por definir" },
+  { nombre:"Valentina Cubillos", rol:"Embajador", area:"Operaciones", pais:"Colombia", fecha:"Por definir" },
+  { nombre:"Jorge Millan", rol:"Embajador", area:"Operaciones", pais:"Colombia", fecha:"Por definir" },
+  { nombre:"James Bocanegra", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"16 Jun, 17 Jun, 18 Jun" },
+  { nombre:"James Ramirez", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"16 Jun, 17 Jun, 18 Jun" },
+  { nombre:"Manuel Espitia", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"16 Jun" },
+  { nombre:"Silvana Londoño", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"16 Jun, 17 Jun, 18 Jun" },
+  { nombre:"Alvaro Sanchez", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"16 Jun, 18 Jun" },
+  { nombre:"Santiago Yepes", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"17 Jun" },
+  { nombre:"Javier Roa", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"17 Jun" },
+  { nombre:"Cristian Forero", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"18 Jun" },
+  { nombre:"Robert Ruiz", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"18 Jun" },
+  { nombre:"Jose Soto", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"18 Jun" },
+  { nombre:"Jhonny Martinez", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"18 Jun" },
+  { nombre:"William Jaramillo", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"18 Jun" },
+  { nombre:"Karen Reyes", rol:"Embajador", area:"Operaciones", pais:"Colombia", fecha:"16 Jun, 17 Jun, 18 Jun" },
+  { nombre:"Angel Moreno", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"16 Jun" },
+  { nombre:"Edwin Fuentes", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"16 Jun" },
+  { nombre:"Fernando Sarmiento", rol:"Embajador", area:"Operaciones", pais:"Colombia", fecha:"Por definir" },
+  { nombre:"Alex Ferney Gutierrez", rol:"Embajador", area:"Operaciones", pais:"Colombia", fecha:"16 Jun" },
+  { nombre:"Johann Sebastian Guerrero", rol:"Embajador", area:"Operaciones", pais:"Colombia", fecha:"18 Jun" },
+  { nombre:"Ider Galindo", rol:"Embajador", area:"Operaciones", pais:"Colombia", fecha:"16 Jun, 17 Jun, 18 Jun" },
+  { nombre:"Jhon Zapata", rol:"Embajador", area:"Operaciones", pais:"Colombia", fecha:"16 Jun, 17 Jun, 18 Jun" },
+  { nombre:"Wilson Gomez", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"18 Jun" },
+  { nombre:"Alejandro Hernandez", rol:"Embajador", area:"Operaciones", pais:"Colombia", fecha:"16 Jun, 17 Jun, 18 Jun" },
+  { nombre:"Angel Bustos", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"16 Jun, 18 Jun" },
+  { nombre:"Karol Melo", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"16 Jun, 18 Jun" },
+  { nombre:"Dany Leyton", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"16 Jun, 18 Jun" },
+  { nombre:"William Heredia", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"17 Jun" },
+  { nombre:"Daniel Rodrigues", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"17 Jun" },
+  { nombre:"Deyvis Miguel", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"17 Jun" },
+  { nombre:"Oscar Valencia", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"17 Jun" },
+  { nombre:"Carlos Mesa", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"18 Jun" },
+  { nombre:"Marvin Franco", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"16 Jun, 18 Jun" },
+  { nombre:"James Davinson", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"18 Jun" },
+  { nombre:"Neyib Gomez", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"18 Jun" },
+  { nombre:"Juan Duran", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"18 Jun" },
+  { nombre:"Jorge Soto", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"18 Jun" },
+  { nombre:"Johan Castro", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"18 Jun" },
+  { nombre:"Daniel Perez", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"18 Jun" },
+  { nombre:"Henry Perez", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"18 Jun" },
+  { nombre:"Brian Zuñiga", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"17 Jun" },
+  { nombre:"Oscar Valencia", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"17 Jun" },
+  { nombre:"Nestor Rodriguez", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"18 Jun" },
+  { nombre:"Hugo Mayorga", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"18 Jun" },
+  { nombre:"Gustavo Ramirez", rol:"Tester", area:"Operaciones", pais:"Colombia", fecha:"18 Jun" },
+  { nombre:"Daniel Monga", rol:"Tester", area:"Operaciones", pais:"Ecuador", fecha:"Por definir" },
+  { nombre:"Johnathan Samaniego", rol:"Tester", area:"Operaciones", pais:"Ecuador", fecha:"Por definir" },
+  { nombre:"Sebastian Maldonado", rol:"Tester", area:"Operaciones", pais:"Ecuador", fecha:"Por definir" },
+  { nombre:"Jonathan Quinga", rol:"Tester", area:"Operaciones", pais:"Ecuador", fecha:"Por definir" },
+  { nombre:"Martha Pullotasing", rol:"Tester", area:"Operaciones", pais:"Ecuador", fecha:"17 Jun" },
+  { nombre:"Luis Morales", rol:"Tester", area:"Operaciones", pais:"Ecuador", fecha:"17 Jun" },
+  { nombre:"Ruben Mendoza", rol:"Tester", area:"Operaciones", pais:"Ecuador", fecha:"Por definir" },
+  { nombre:"Martin Navas", rol:"Tester", area:"Operaciones", pais:"Venezuela", fecha:"17 Jun" },
+  { nombre:"Jose Castro", rol:"Tester", area:"Operaciones", pais:"Venezuela", fecha:"Por definir" },
+  { nombre:"Jonathan Quinga", rol:"Tester", area:"Operaciones", pais:"Venezuela", fecha:"Por definir" },
+  { nombre:"Luis Rosales", rol:"Tester", area:"Operaciones", pais:"Ecuador", fecha:"Por definir" },
+  { nombre:"Maribel Murillo", rol:"Tester", area:"Operaciones", pais:"Ecuador", fecha:"Por definir" },
+  { nombre:"Erick Morales", rol:"Tester", area:"Operaciones", pais:"Ecuador", fecha:"Por definir" },
+  { nombre:"Camila Tupyza", rol:"Tester", area:"Operaciones", pais:"Ecuador", fecha:"Por definir" },
+  { nombre:"Jorge Nacimba", rol:"Tester", area:"Operaciones", pais:"Ecuador", fecha:"Por definir" },
+  { nombre:"Gabriel Amado", rol:"Embajador", area:"Comercial", pais:"Colombia", fecha:"16 Jun, 17 Jun, 18 Jun" },
+  { nombre:"Alvaro Vives", rol:"Embajador", area:"Comercial", pais:"Colombia", fecha:"16 Jun, 17 Jun, 18 Jun" },
+  { nombre:"Juan Jose Rodriguez", rol:"Embajador", area:"Comercial", pais:"Colombia", fecha:"16 Jun, 17 Jun, 18 Jun" },
+  { nombre:"Hector Alfonso Sanabria", rol:"Tester", area:"Comercial", pais:"Colombia", fecha:"16 Jun, 17 Jun, 18 Jun" },
+  { nombre:"Carolina Pisco", rol:"Embajador", area:"Comercial", pais:"Colombia", fecha:"16 Jun, 17 Jun, 18 Jun" },
+  { nombre:"Laura Velez", rol:"Embajador", area:"Comercial", pais:"Colombia", fecha:"16 Jun, 17 Jun, 18 Jun" },
+  { nombre:"Gabriel Perez", rol:"Tester", area:"Comercial", pais:"Colombia", fecha:"16 Jun, 17 Jun, 18 Jun" },
+  { nombre:"Laura Gabriela Cuervo", rol:"Tester", area:"Comercial", pais:"Colombia", fecha:"16 Jun, 17 Jun, 18 Jun" },
+  { nombre:"Jonathan Valencia", rol:"Tester", area:"Comercial", pais:"Colombia", fecha:"16 Jun, 17 Jun, 18 Jun" },
+  { nombre:"Juan Esteban Sánchez", rol:"Tester", area:"Comercial", pais:"Colombia", fecha:"16 Jun, 17 Jun, 18 Jun" },
+  { nombre:"Maria Alejandra Gonzalez Pinzon", rol:"Tester", area:"Comercial", pais:"Colombia", fecha:"16 Jun, 17 Jun, 18 Jun" },
+  { nombre:"Juan David Correa", rol:"Embajador", area:"Comercial", pais:"Colombia", fecha:"16 Jun, 17 Jun, 18 Jun" },
+  { nombre:"Juan David Olmos", rol:"Embajador", area:"Comercial", pais:"Colombia", fecha:"16 Jun, 17 Jun, 18 Jun" },
+  { nombre:"Jhon Fredy Gonzalez", rol:"Embajador", area:"Comercial", pais:"Colombia", fecha:"16 Jun, 17 Jun, 18 Jun" },
+  { nombre:"Nicolas Reyes", rol:"Embajador", area:"Comercial", pais:"Colombia", fecha:"16 Jun, 17 Jun, 18 Jun" },
+  { nombre:"Carlos Severiche", rol:"Tester", area:"Comercial", pais:"Colombia", fecha:"16 Jun, 17 Jun, 18 Jun" },
+  { nombre:"Cristian Alejandro Ortiz", rol:"Embajador", area:"Retail", pais:"Colombia", fecha:"9 Jun, 10 Jun, 16 Jun, 17 Jun, 18 Jun" },
+  { nombre:"Nelson Javier Castro", rol:"Tester", area:"Retail", pais:"Colombia", fecha:"18 Jun" },
+  { nombre:"Oscar Andres Maldonado", rol:"Tester", area:"Retail", pais:"Colombia", fecha:"18 Jun" },
+  { nombre:"Ana Camila Avellaneda", rol:"Tester", area:"Retail", pais:"Colombia", fecha:"17 Jun" },
+  { nombre:"Omaira Lucia Gonzales", rol:"Tester", area:"Retail", pais:"Colombia", fecha:"16 Jun" },
+  { nombre:"Deisy Mayerli Quevedo", rol:"Tester", area:"Retail", pais:"Colombia", fecha:"9 Jun" },
+  { nombre:"Juan Nicolas Sanchez Moya", rol:"Tester", area:"Retail", pais:"Colombia", fecha:"10 Jun" },
+  { nombre:"Alexis Perez", rol:"Tester", area:"Retail", pais:"Colombia", fecha:"9 Jun" },
 ];
 
 function initials(n) { return n.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase(); }
@@ -1151,6 +1303,7 @@ function renderP(list) {
                   <div class="ai-name">${p.nombre}</div>
                   <div class="ai-rol">${p.rol} · <i class="fa-solid fa-location-dot"></i> ${p.pais}</div>
                 </div>
+                ${p.fecha ? `<span class="ai-fecha"><i class="fa-solid fa-calendar"></i> ${p.fecha}</span>` : ''}
               </div>
             `).join('')}
           </div>
