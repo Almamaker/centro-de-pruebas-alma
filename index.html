@@ -1332,6 +1332,12 @@ function renderP(list) {
       if (!subgrupos[sub]) subgrupos[sub] = [];
       subgrupos[sub].push(p);
     });
+    // Sort each subgroup: Embajadores first
+    Object.values(subgrupos).forEach(list => list.sort((a,b) => {
+      const aE = a.rol === 'Embajador' ? 0 : 1;
+      const bE = b.rol === 'Embajador' ? 0 : 1;
+      return aE - bE;
+    }));
     const subareas = Object.keys(subgrupos);
     const multiSub = subareas.length > 1;
 
