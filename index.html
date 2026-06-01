@@ -660,7 +660,6 @@
         <thead>
           <tr>
             <th class="lh month-th" rowspan="2">Fase</th>
-            <th class="month-th" colspan="7">Mayo</th>
             <th class="month-th" colspan="30">Junio</th>
           </tr>
           <tr id="dayRow"></tr>
@@ -832,28 +831,16 @@
   </div>
   <div class="sop-grid">
     <div class="sop-card dark">
-      <div class="sop-icon"><i class="fa-solid fa-message"></i></div>
+      <div class="sop-icon"><i class="fa-brands fa-whatsapp"></i></div>
       <div class="sop-label">Canal principal</div>
-      <div class="sop-title">Teams · Canal ALMA Pruebas</div>
+      <div class="sop-title">WhatsApp · Canal ALMA Pruebas</div>
       <div class="sop-detail">Dudas generales, avisos de bloqueos y comunicación del equipo extendido.</div>
     </div>
     <div class="sop-card mid">
-      <div class="sop-icon"><i class="fa-solid fa-life-ring"></i></div>
-      <div class="sop-label">Soporte técnico</div>
-      <div class="sop-title">Mesa de Ayuda CDA</div>
-      <div class="sop-detail">Incidencias en SAP, accesos y errores técnicos durante la ejecución.</div>
-    </div>
-    <div class="sop-card light">
-      <div class="sop-icon"><i class="fa-solid fa-user-check"></i></div>
-      <div class="sop-label">Coordinación</div>
-      <div class="sop-title">Gestor de Prueba por Área</div>
-      <div class="sop-detail">Escalamiento de hallazgos y seguimiento del cronograma por área.</div>
-    </div>
-    <div class="sop-card light">
-      <div class="sop-icon"><i class="fa-solid fa-clock"></i></div>
-      <div class="sop-label">Horario</div>
-      <div class="sop-title">Lun – Vie · 8am a 6pm</div>
-      <div class="sop-detail">Equipo disponible en cada franja de ejecución del plan de pruebas.</div>
+      <div class="sop-icon"><i class="fa-solid fa-calendar-check"></i></div>
+      <div class="sop-label">Daily de seguimiento</div>
+      <div class="sop-title">8:30 am · 4:30 pm</div>
+      <div class="sop-detail">Daily de seguimiento para evaluar el avance de las pruebas, los issues y el seguimiento de las soluciones.</div>
     </div>
   </div>
 </div>
@@ -1040,19 +1027,18 @@ function filtrarPais(pais, btn) {
 renderP(participantes);
 
 // GANTT
-const mayo  = Array.from({length:7},  (_,i)=>({m:'May',d:25+i}));
 const junio = Array.from({length:30}, (_,i)=>({m:'Jun',d:i+1}));
-const dias  = [...mayo, ...junio];
+const dias  = [...junio];
 
 const filas = [
-  { label:"Integraciones independientes", sub:"Todas las áreas",       cls:"m1", ini:0,  fin:11 },
-  { label:"Cierre financiero",            sub:"Finanzas / Transversal", cls:"m2", ini:15, fin:19 },
-  { label:"Nómina y gastos de viaje",     sub:"Nómina / Transversal",   cls:"m2", ini:15, fin:19 },
-  { label:"Datos maestros",               sub:"Transversal",            cls:"m2", ini:15, fin:19 },
-  { label:"Operaciones",                  sub:"Momento 3",              cls:"m3", ini:22, fin:37 },
-  { label:"Comercial",                    sub:"Momento 3",              cls:"m3", ini:22, fin:37 },
-  { label:"Retail",                       sub:"Momento 3",              cls:"m3", ini:26, fin:37 },
-  { label:"Validaciones financieras",     sub:"Derivadas Momento 3",    cls:"m3", ini:22, fin:37 },
+  { label:"Integraciones independientes", sub:"Todas las áreas",       cls:"m1", ini:0,  fin:4  },
+  { label:"Cierre financiero",            sub:"Finanzas / Transversal", cls:"m2", ini:8,  fin:12 },
+  { label:"Nómina y gastos de viaje",     sub:"Nómina / Transversal",   cls:"m2", ini:8,  fin:12 },
+  { label:"Datos maestros",               sub:"Transversal",            cls:"m2", ini:8,  fin:12 },
+  { label:"Operaciones",                  sub:"Momento 3",              cls:"m3", ini:15, fin:29 },
+  { label:"Comercial",                    sub:"Momento 3",              cls:"m3", ini:15, fin:29 },
+  { label:"Retail",                       sub:"Momento 3",              cls:"m3", ini:19, fin:29 },
+  { label:"Validaciones financieras",     sub:"Derivadas Momento 3",    cls:"m3", ini:15, fin:29 },
 ];
 
 const dayRow = document.getElementById('dayRow');
