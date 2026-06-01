@@ -589,7 +589,7 @@
     <div class="hero-chip" style="background:white;padding:8px 18px;border:none;">
       <img src="almalogo.png" alt="ALMA" style="height:120px;object-fit:contain;display:block;">
     </div>
-    <h1>Centro de<br>Pruebas <span class="alt">ALMA</span></h1>
+    <h1>Centro de Pruebas <span class="alt">ALMA</span></h1>
     <p class="hero-lema">
       "Cada prueba cuenta. Cada rol suma. Cada hallazgo nos acerca a una operación más segura."
     </p>
@@ -743,6 +743,12 @@
     </button>
     <button class="fbtn" onclick="filtrar('Retail',this)">
       <i class="fa-solid fa-cart-shopping"></i> Retail
+    </button>
+    <button class="fbtn" onclick="filtrarPais('Ecuador',this)">
+      <i class="fa-solid fa-location-dot"></i> Ecuador
+    </button>
+    <button class="fbtn" onclick="filtrarPais('Venezuela',this)">
+      <i class="fa-solid fa-location-dot"></i> Venezuela
     </button>
   </div>
   <div class="p-grid" id="pGrid"></div>
@@ -986,10 +992,16 @@ const participantes = [
 function initials(n) { return n.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase(); }
 function avColor(n)  { let h=0; for(let c of n) h=(h+c.charCodeAt(0))%avColors.length; return avColors[h]; }
 
+function avatarImg(rol) {
+  if (rol === 'Embajador') return `<img src="embajador.png" alt="Embajador" style="width:64px;height:64px;object-fit:contain;">`;
+  if (rol === 'Tester' || rol === 'Key User') return `<img src="tester.png" alt="Tester" style="width:64px;height:64px;object-fit:contain;">`;
+  return `<img src="tester.png" alt="${rol}" style="width:64px;height:64px;object-fit:contain;">`;
+}
+
 function renderP(list) {
   document.getElementById('pGrid').innerHTML = list.map(p => `
     <div class="p-card">
-      <div class="p-av" style="background:${avColor(p.nombre)}">${initials(p.nombre)}</div>
+      <div class="p-av" style="background:transparent;box-shadow:none;">${avatarImg(p.rol)}</div>
       <div class="p-name">${p.nombre}</div>
       <div class="p-rol">${p.rol}</div>
       <span class="p-area-tag">${p.area}</span>
@@ -1001,6 +1013,12 @@ function filtrar(area, btn) {
   document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   renderP(area==='todos' ? participantes : participantes.filter(p=>p.area===area));
+}
+
+function filtrarPais(pais, btn) {
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderP(participantes.filter(p=>p.pais===pais));
 }
 renderP(participantes);
 
