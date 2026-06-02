@@ -704,6 +704,9 @@
   <button class="nav-btn" onclick="showTab('cronograma', this)">
     <i class="fa-solid fa-table-list"></i> Cronograma Detallado
   </button>
+  <button class="nav-btn" onclick="showTab('preguntas', this)">
+    <i class="fa-solid fa-circle-question"></i> Preguntas
+  </button>
 </nav>
   <div class="nav-arrow right"><i class="fa-solid fa-chevron-right"></i></div>
 </div>
@@ -1037,6 +1040,75 @@
 </div>
 
 <!-- ══ PROYECTO ══ -->
+<!-- ══ PREGUNTAS ══ -->
+<div id="preguntas" class="section">
+  <div class="sec-header">
+    <div class="sec-icon"><i class="fa-solid fa-circle-question"></i></div>
+    <div>
+      <h2>Preguntas</h2>
+      <p>Tu voz importa. Cada pregunta nos ayuda a mejorar el proceso para todos.</p>
+    </div>
+  </div>
+
+  <!-- FORMULARIO PÚBLICO -->
+  <div id="q-form-area" style="background:white;border-radius:14px;border:1.5px solid var(--borde);padding:28px 32px;margin-bottom:24px;box-shadow:0 2px 8px rgba(10,47,107,0.05);">
+    <h3 style="font-family:'Nunito',sans-serif;font-weight:800;font-size:17px;color:var(--az-oscuro);margin-bottom:6px;">¿Tienes alguna inquietud? Queremos escucharte</h3>
+    <p style="font-size:13px;color:var(--texto-sec);margin-bottom:20px;line-height:1.6;">Tu pregunta será recopilada y respondida próximamente. No se mostrará de forma pública por ahora.</p>
+
+    <div style="margin-bottom:16px;">
+      <label style="font-size:13px;font-weight:700;color:var(--az-oscuro);display:block;margin-bottom:6px;">Tu nombre <span style="color:var(--texto-sec);font-weight:400;">(opcional)</span></label>
+      <input id="q-nombre" type="text" placeholder="Ej: Juan García" style="width:100%;padding:11px 16px;border-radius:10px;border:1.5px solid var(--borde);font-family:'Nunito Sans',sans-serif;font-size:14px;color:var(--texto);outline:none;box-sizing:border-box;transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--az-principal)'" onblur="this.style.borderColor='var(--borde)'">
+    </div>
+    <div style="margin-bottom:16px;">
+      <label style="font-size:13px;font-weight:700;color:var(--az-oscuro);display:block;margin-bottom:6px;">Tu área</label>
+      <select id="q-area" style="width:100%;padding:11px 16px;border-radius:10px;border:1.5px solid var(--borde);font-family:'Nunito Sans',sans-serif;font-size:14px;color:var(--texto);outline:none;box-sizing:border-box;background:white;transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--az-principal)'" onblur="this.style.borderColor='var(--borde)'">
+        <option value="">— Selecciona tu área —</option>
+        <option>Finanzas</option>
+        <option>Operaciones</option>
+        <option>Nómina</option>
+        <option>Comercial</option>
+        <option>Retail</option>
+        <option>Datos maestros</option>
+        <option>Otra</option>
+      </select>
+    </div>
+    <div style="margin-bottom:20px;">
+      <label style="font-size:13px;font-weight:700;color:var(--az-oscuro);display:block;margin-bottom:6px;">Tu pregunta <span style="color:#e53935;">*</span></label>
+      <textarea id="q-texto" rows="4" placeholder="Escribe tu pregunta aquí..." style="width:100%;padding:11px 16px;border-radius:10px;border:1.5px solid var(--borde);font-family:'Nunito Sans',sans-serif;font-size:14px;color:var(--texto);outline:none;resize:vertical;box-sizing:border-box;transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--az-principal)'" onblur="this.style.borderColor='var(--borde)'"></textarea>
+    </div>
+    <button onclick="enviarPregunta()" style="background:var(--az-principal);color:white;border:none;padding:12px 28px;border-radius:100px;font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background 0.2s;" onmouseover="this.style.background='var(--az-oscuro)'" onmouseout="this.style.background='var(--az-principal)'">
+      <i class="fa-solid fa-paper-plane"></i> Enviar pregunta
+    </button>
+    <div id="q-msg" style="display:none;margin-top:16px;padding:12px 18px;border-radius:10px;font-size:13px;font-weight:700;"></div>
+  </div>
+
+  <!-- PANEL ADMIN (oculto por defecto) -->
+  <div id="q-admin-toggle" style="text-align:center;margin-top:8px;">
+    <button onclick="toggleAdmin()" style="background:none;border:none;color:var(--texto-sec);font-size:12px;cursor:pointer;font-family:'Nunito Sans',sans-serif;opacity:0.5;padding:4px 8px;">
+      <i class="fa-solid fa-lock"></i> Acceso administrador
+    </button>
+  </div>
+
+  <div id="q-admin-login" style="display:none;background:var(--az-fondo);border-radius:12px;padding:20px 24px;margin-top:12px;border:1.5px dashed var(--borde);">
+    <div style="font-size:13px;font-weight:700;color:var(--az-oscuro);margin-bottom:10px;">Ingresa la clave de administrador</div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <input id="q-clave" type="password" placeholder="Clave..." style="flex:1;padding:10px 14px;border-radius:10px;border:1.5px solid var(--borde);font-family:'Nunito Sans',sans-serif;font-size:14px;outline:none;" onfocus="this.style.borderColor='var(--az-principal)'" onblur="this.style.borderColor='var(--borde)'" onkeydown="if(event.key==='Enter')verAdmin()">
+      <button onclick="verAdmin()" style="background:var(--az-oscuro);color:white;border:none;padding:10px 20px;border-radius:100px;font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">Entrar</button>
+    </div>
+    <div id="q-clave-error" style="display:none;color:#e53935;font-size:12px;margin-top:8px;">Clave incorrecta.</div>
+  </div>
+
+  <div id="q-admin-panel" style="display:none;margin-top:16px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:16px;color:var(--az-oscuro);">
+        <i class="fa-solid fa-inbox"></i> Preguntas recibidas — <span id="q-count">0</span>
+      </div>
+      <button onclick="cerrarAdmin()" style="background:none;border:1.5px solid var(--borde);padding:6px 14px;border-radius:100px;font-size:12px;font-weight:700;cursor:pointer;color:var(--texto-sec);">Cerrar</button>
+    </div>
+    <div id="q-lista"></div>
+  </div>
+</div>
+
 <div id="proyecto" class="section active">
   <div class="sec-header">
     <div class="sec-icon"><i class="fa-solid fa-rocket"></i></div>
@@ -1052,7 +1124,7 @@
       <img src="saprise.png" alt="SAP RISE" style="height:140px;object-fit:contain;">
     </h3>
     <p style="font-size:14.5px;color:var(--texto-sec);line-height:1.85;margin-bottom:18px;">
-      El proyecto <strong style="color:var(--az-oscuro)">SAP RISE de Alpina</strong> es una iniciativa estratégica de transformación tecnológica orientada a modernizar la plataforma SAP y fortalecer la continuidad operativa del negocio. A través de este programa, Alpina avanza hacia un modelo más flexible, escalable y sostenible, migrando su landscape SAP a la nube privada de SAP RISE y preparando la organización para operar bajo nuevas capacidades tecnológicas, mejores prácticas y un esquema de soporte especializado.
+      El proyecto <strong style="color:var(--az-oscuro)">SAP RISE de Alpina</strong> es una iniciativa estratégica de transformación tecnológica orientada a modernizar la plataforma SAP y fortalecer la continuidad operativa del negocio. A través de este proyecto, Alpina avanza hacia un modelo más flexible, escalable y sostenible, migrando su landscape SAP a la nube privada de SAP RISE y preparando la organización para operar bajo nuevas capacidades tecnológicas, mejores prácticas y un esquema de soporte especializado.
     </p>
     <p style="font-size:14.5px;color:var(--texto-sec);line-height:1.85;margin-bottom:18px;">
       Más que una migración tecnológica, <strong style="color:var(--az-oscuro)">SAP RISE representa un paso relevante en la evolución digital de Alpina</strong>. Su propósito es asegurar que los procesos críticos del negocio continúen operando de forma estable, que los equipos estén preparados para los momentos clave del proyecto, pruebas, cutover, salida en vivo e hiper care, y que la organización cuente con el conocimiento, los canales de soporte y la información necesaria para adoptar el nuevo modelo de operación.
@@ -1063,7 +1135,7 @@
   </div>
 
   <div style="text-align:center;">
-    <img src="cronograma.png" alt="Cronograma del proyecto 2026"
+    <img src="fechasclave.png" alt="Fechas clave del proyecto 2026"
       style="max-width:100%;border-radius:14px;border:1.5px solid var(--borde);box-shadow:0 4px 16px rgba(10,47,107,0.10);">
   </div>
 </div>
@@ -1727,6 +1799,112 @@ function showTooltip(e, ses) {
 function hideTooltip() {
   tooltip.classList.remove('visible');
   clearTimeout(tooltipTimer);
+}
+
+// ══ PREGUNTAS ══
+const ADMIN_PASS = 'ALMA2026';
+
+async function enviarPregunta() {
+  const nombre = document.getElementById('q-nombre').value.trim();
+  const area   = document.getElementById('q-area').value;
+  const texto  = document.getElementById('q-texto').value.trim();
+  const msg    = document.getElementById('q-msg');
+
+  if (!texto) {
+    msg.style.display = 'block';
+    msg.style.background = '#fff3f3';
+    msg.style.color = '#e53935';
+    msg.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Por favor escribe tu pregunta antes de enviar.';
+    return;
+  }
+
+  const pregunta = {
+    id: Date.now(),
+    nombre: nombre || 'Anónimo',
+    area: area || 'Sin especificar',
+    texto,
+    fecha: new Date().toLocaleString('es-CO', { dateStyle:'short', timeStyle:'short' })
+  };
+
+  try {
+    // Load existing questions
+    let preguntas = [];
+    try {
+      const result = await window.storage.get('preguntas');
+      if (result) preguntas = JSON.parse(result.value);
+    } catch(e) {}
+
+    preguntas.push(pregunta);
+    await window.storage.set('preguntas', JSON.stringify(preguntas), true);
+
+    // Show success
+    document.getElementById('q-nombre').value = '';
+    document.getElementById('q-area').value = '';
+    document.getElementById('q-texto').value = '';
+    msg.style.display = 'block';
+    msg.style.background = '#f0faf4';
+    msg.style.color = '#2e7d32';
+    msg.innerHTML = '<i class="fa-solid fa-circle-check"></i> ¡Gracias! Tu pregunta fue recibida y será respondida próximamente.';
+    setTimeout(() => { msg.style.display = 'none'; }, 5000);
+  } catch(e) {
+    msg.style.display = 'block';
+    msg.style.background = '#fff3f3';
+    msg.style.color = '#e53935';
+    msg.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Error al enviar. Intenta de nuevo.';
+  }
+}
+
+function toggleAdmin() {
+  const login = document.getElementById('q-admin-login');
+  login.style.display = login.style.display === 'none' ? 'block' : 'none';
+  document.getElementById('q-clave-error').style.display = 'none';
+}
+
+async function verAdmin() {
+  const clave = document.getElementById('q-clave').value;
+  if (clave !== ADMIN_PASS) {
+    document.getElementById('q-clave-error').style.display = 'block';
+    return;
+  }
+  document.getElementById('q-admin-login').style.display = 'none';
+  document.getElementById('q-admin-toggle').style.display = 'none';
+  document.getElementById('q-clave').value = '';
+
+  const panel = document.getElementById('q-admin-panel');
+  panel.style.display = 'block';
+
+  let preguntas = [];
+  try {
+    const result = await window.storage.get('preguntas', true);
+    if (result) preguntas = JSON.parse(result.value);
+  } catch(e) {}
+
+  document.getElementById('q-count').textContent = preguntas.length;
+
+  if (!preguntas.length) {
+    document.getElementById('q-lista').innerHTML = `
+      <div style="text-align:center;padding:40px;color:var(--texto-sec);font-size:14px;">
+        <i class="fa-solid fa-inbox" style="font-size:32px;display:block;margin-bottom:12px;color:var(--az-suave);"></i>
+        Aún no hay preguntas enviadas.
+      </div>`;
+    return;
+  }
+
+  document.getElementById('q-lista').innerHTML = preguntas.slice().reverse().map((p, i) => `
+    <div style="background:white;border-radius:12px;border:1.5px solid var(--borde);padding:18px 22px;margin-bottom:10px;box-shadow:0 1px 4px rgba(10,47,107,0.04);">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;">
+        <span style="background:var(--az-principal);color:white;border-radius:100px;padding:3px 12px;font-size:11px;font-weight:700;">#${preguntas.length - i}</span>
+        <span style="font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;color:var(--az-oscuro);">${p.nombre}</span>
+        <span style="background:var(--az-fondo);color:var(--az-medio);border-radius:100px;padding:2px 10px;font-size:11px;font-weight:700;">${p.area}</span>
+        <span style="color:var(--texto-sec);font-size:11px;margin-left:auto;">${p.fecha}</span>
+      </div>
+      <div style="font-size:14px;color:var(--texto);line-height:1.65;">${p.texto}</div>
+    </div>`).join('');
+}
+
+function cerrarAdmin() {
+  document.getElementById('q-admin-panel').style.display = 'none';
+  document.getElementById('q-admin-toggle').style.display = 'block';
 }
 </script>
 </body>
