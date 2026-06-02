@@ -1050,62 +1050,11 @@
     </div>
   </div>
 
-  <!-- FORMULARIO PÚBLICO -->
-  <div id="q-form-area" style="background:white;border-radius:14px;border:1.5px solid var(--borde);padding:28px 32px;margin-bottom:24px;box-shadow:0 2px 8px rgba(10,47,107,0.05);">
+  <!-- FORMULARIO GOOGLE FORMS -->
+  <div style="background:white;border-radius:14px;border:1.5px solid var(--borde);padding:28px 32px;margin-bottom:24px;box-shadow:0 2px 8px rgba(10,47,107,0.05);">
     <h3 style="font-family:'Nunito',sans-serif;font-weight:800;font-size:17px;color:var(--az-oscuro);margin-bottom:6px;">¿Tienes alguna inquietud? Queremos escucharte</h3>
     <p style="font-size:13px;color:var(--texto-sec);margin-bottom:20px;line-height:1.6;">Tu pregunta será recopilada y respondida próximamente. No se mostrará de forma pública por ahora.</p>
-
-    <div style="margin-bottom:16px;">
-      <label style="font-size:13px;font-weight:700;color:var(--az-oscuro);display:block;margin-bottom:6px;">Tu nombre <span style="color:var(--texto-sec);font-weight:400;">(opcional)</span></label>
-      <input id="q-nombre" type="text" placeholder="Ej: Juan García" style="width:100%;padding:11px 16px;border-radius:10px;border:1.5px solid var(--borde);font-family:'Nunito Sans',sans-serif;font-size:14px;color:var(--texto);outline:none;box-sizing:border-box;transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--az-principal)'" onblur="this.style.borderColor='var(--borde)'">
-    </div>
-    <div style="margin-bottom:16px;">
-      <label style="font-size:13px;font-weight:700;color:var(--az-oscuro);display:block;margin-bottom:6px;">Tu área</label>
-      <select id="q-area" style="width:100%;padding:11px 16px;border-radius:10px;border:1.5px solid var(--borde);font-family:'Nunito Sans',sans-serif;font-size:14px;color:var(--texto);outline:none;box-sizing:border-box;background:white;transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--az-principal)'" onblur="this.style.borderColor='var(--borde)'">
-        <option value="">— Selecciona tu área —</option>
-        <option>Finanzas</option>
-        <option>Operaciones</option>
-        <option>Nómina</option>
-        <option>Comercial</option>
-        <option>Retail</option>
-        <option>Datos maestros</option>
-        <option>Otra</option>
-      </select>
-    </div>
-    <div style="margin-bottom:20px;">
-      <label style="font-size:13px;font-weight:700;color:var(--az-oscuro);display:block;margin-bottom:6px;">Tu pregunta <span style="color:#e53935;">*</span></label>
-      <textarea id="q-texto" rows="4" placeholder="Escribe tu pregunta aquí..." style="width:100%;padding:11px 16px;border-radius:10px;border:1.5px solid var(--borde);font-family:'Nunito Sans',sans-serif;font-size:14px;color:var(--texto);outline:none;resize:vertical;box-sizing:border-box;transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--az-principal)'" onblur="this.style.borderColor='var(--borde)'"></textarea>
-    </div>
-    <button onclick="enviarPregunta()" style="background:var(--az-principal);color:white;border:none;padding:12px 28px;border-radius:100px;font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background 0.2s;" onmouseover="this.style.background='var(--az-oscuro)'" onmouseout="this.style.background='var(--az-principal)'">
-      <i class="fa-solid fa-paper-plane"></i> Enviar pregunta
-    </button>
-    <div id="q-msg" style="display:none;margin-top:16px;padding:12px 18px;border-radius:10px;font-size:13px;font-weight:700;"></div>
-  </div>
-
-  <!-- PANEL ADMIN (oculto por defecto) -->
-  <div id="q-admin-toggle" style="text-align:center;margin-top:8px;">
-    <button onclick="toggleAdmin()" style="background:none;border:none;color:var(--texto-sec);font-size:12px;cursor:pointer;font-family:'Nunito Sans',sans-serif;opacity:0.5;padding:4px 8px;">
-      <i class="fa-solid fa-lock"></i> Acceso administrador
-    </button>
-  </div>
-
-  <div id="q-admin-login" style="display:none;background:var(--az-fondo);border-radius:12px;padding:20px 24px;margin-top:12px;border:1.5px dashed var(--borde);">
-    <div style="font-size:13px;font-weight:700;color:var(--az-oscuro);margin-bottom:10px;">Ingresa la clave de administrador</div>
-    <div style="display:flex;gap:10px;align-items:center;">
-      <input id="q-clave" type="password" placeholder="Clave..." style="flex:1;padding:10px 14px;border-radius:10px;border:1.5px solid var(--borde);font-family:'Nunito Sans',sans-serif;font-size:14px;outline:none;" onfocus="this.style.borderColor='var(--az-principal)'" onblur="this.style.borderColor='var(--borde)'" onkeydown="if(event.key==='Enter')verAdmin()">
-      <button onclick="verAdmin()" style="background:var(--az-oscuro);color:white;border:none;padding:10px 20px;border-radius:100px;font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">Entrar</button>
-    </div>
-    <div id="q-clave-error" style="display:none;color:#e53935;font-size:12px;margin-top:8px;">Clave incorrecta.</div>
-  </div>
-
-  <div id="q-admin-panel" style="display:none;margin-top:16px;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
-      <div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:16px;color:var(--az-oscuro);">
-        <i class="fa-solid fa-inbox"></i> Preguntas recibidas — <span id="q-count">0</span>
-      </div>
-      <button onclick="cerrarAdmin()" style="background:none;border:1.5px solid var(--borde);padding:6px 14px;border-radius:100px;font-size:12px;font-weight:700;cursor:pointer;color:var(--texto-sec);">Cerrar</button>
-    </div>
-    <div id="q-lista"></div>
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd8TfxulhK3eq6Y7Hf1hZoTEQjEzbYwKeDWHKVCM7CD0Y9_tw/viewform?embedded=true" width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0" style="border-radius:10px;">Cargando…</iframe>
   </div>
 </div>
 
