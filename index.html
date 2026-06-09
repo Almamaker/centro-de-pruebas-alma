@@ -421,6 +421,39 @@
     color:var(--texto-sec);font-size:14px;
   }
 
+  /* ── TABLERO ── */
+  .tb-stats { display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-bottom:24px; }
+  .tb-stat { background:white;border-radius:12px;border:1.5px solid var(--borde);padding:16px 18px;text-align:center; }
+  .tb-stat .ts-num { font-family:'Nunito',sans-serif;font-weight:900;font-size:28px;color:var(--az-principal); }
+  .tb-stat .ts-label { font-size:11px;color:var(--texto-sec);font-weight:700;text-transform:uppercase;letter-spacing:0.5px; }
+  .inc-card { background:white;border-radius:12px;border:1.5px solid var(--borde);padding:16px 20px;margin-bottom:10px;box-shadow:0 1px 4px rgba(10,47,107,0.04); }
+  .inc-card:hover { box-shadow:0 4px 12px rgba(10,47,107,0.08); }
+  .inc-header { display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px; }
+  .inc-id { background:var(--az-principal);color:white;border-radius:100px;padding:2px 10px;font-size:11px;font-weight:700;flex-shrink:0; }
+  .inc-titulo { font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;color:var(--az-oscuro);flex:1; }
+  .inc-desc { font-size:13px;color:var(--texto-sec);line-height:1.6;margin-bottom:10px; }
+  .inc-meta { display:flex;align-items:center;gap:8px;flex-wrap:wrap; }
+  .inc-tag { padding:3px 10px;border-radius:100px;font-size:11px;font-weight:700; }
+  .inc-tag.area { background:var(--az-fondo);color:var(--az-medio); }
+  .inc-tag.pri-alta { background:#fff0f0;color:#c62828; }
+  .inc-tag.pri-media { background:#fff8e1;color:#e65100; }
+  .inc-tag.pri-baja { background:#f1f8e9;color:#2e7d32; }
+  .inc-tag.est-abierto { background:#fff0f0;color:#c62828; }
+  .inc-tag.est-revision { background:#fff8e1;color:#e65100; }
+  .inc-tag.est-resuelto { background:#f1f8e9;color:#2e7d32; }
+  .inc-tag.est-cerrado { background:#f5f5f5;color:#757575; }
+  .inc-fecha { font-size:11px;color:var(--texto-sec);margin-left:auto; }
+  .est-select { border:1.5px solid var(--borde);border-radius:100px;padding:4px 12px;font-size:11px;font-weight:700;cursor:pointer;outline:none;font-family:'Nunito Sans',sans-serif;background:white;color:var(--texto); }
+  .tb-filters { display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px; }
+  .tb-fbtn { background:white;border:1.5px solid var(--borde);border-radius:100px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;color:var(--texto-sec);transition:all 0.15s; }
+  .tb-fbtn.active,.tb-fbtn:hover { background:var(--az-principal);border-color:var(--az-principal);color:white; }
+  .tb-form { background:white;border-radius:14px;border:1.5px solid var(--borde);padding:24px 28px;margin-bottom:24px;box-shadow:0 2px 8px rgba(10,47,107,0.05); }
+  .tb-field { margin-bottom:14px; }
+  .tb-label { font-size:13px;font-weight:700;color:var(--az-oscuro);display:block;margin-bottom:6px; }
+  .tb-input { width:100%;padding:10px 14px;border-radius:10px;border:1.5px solid var(--borde);font-family:'Nunito Sans',sans-serif;font-size:13px;color:var(--texto);outline:none;box-sizing:border-box;transition:border-color 0.2s; }
+  .tb-input:focus { border-color:var(--az-principal); }
+  .tb-row { display:grid;grid-template-columns:1fr 1fr;gap:14px; }
+
   /* ── ROLES ── */
   .roles-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;margin-bottom:44px; }
   .role-card {
@@ -712,6 +745,9 @@
   </button>
   <button class="nav-btn" onclick="showTab('incidentes', this)">
     <i class="fa-solid fa-triangle-exclamation"></i> Incidentes
+  </button>
+  <button class="nav-btn" onclick="showTab('tablero', this); cargarTablero()">
+    <i class="fa-solid fa-chart-kanban"></i> Tablero
   </button>
 </nav>
   <div class="nav-arrow right"><i class="fa-solid fa-chevron-right"></i></div>
@@ -1046,6 +1082,106 @@
 </div>
 
 <!-- ══ PROYECTO ══ -->
+<!-- ══ TABLERO ══ -->
+<div id="tablero" class="section">
+  <div class="sec-header">
+    <div class="sec-icon"><i class="fa-solid fa-chart-kanban"></i></div>
+    <div>
+      <h2>Tablero de Incidentes</h2>
+      <p>Registra y hace seguimiento a los incidentes de las pruebas</p>
+    </div>
+  </div>
+
+  <!-- Estadísticas -->
+  <div class="tb-stats" id="tb-stats">
+    <div class="tb-stat"><div class="ts-num" id="ts-total">—</div><div class="ts-label">Total</div></div>
+    <div class="tb-stat"><div class="ts-num" id="ts-abierto" style="color:#c62828;">—</div><div class="ts-label">Abiertos</div></div>
+    <div class="tb-stat"><div class="ts-num" id="ts-revision" style="color:#e65100;">—</div><div class="ts-label">En revisión</div></div>
+    <div class="tb-stat"><div class="ts-num" id="ts-resuelto" style="color:#2e7d32;">—</div><div class="ts-label">Resueltos</div></div>
+  </div>
+
+  <!-- Acceso admin para registrar -->
+  <div id="tb-admin-toggle" style="text-align:right;margin-bottom:16px;">
+    <button onclick="toggleTbAdmin()" style="background:none;border:none;color:var(--texto-sec);font-size:12px;cursor:pointer;font-family:'Nunito Sans',sans-serif;opacity:0.4;padding:4px 8px;">
+      <i class="fa-solid fa-lock"></i> Registrar incidente
+    </button>
+  </div>
+
+  <div id="tb-admin-login" style="display:none;background:var(--az-fondo);border-radius:12px;padding:18px 22px;margin-bottom:20px;border:1.5px dashed var(--borde);">
+    <div style="font-size:13px;font-weight:700;color:var(--az-oscuro);margin-bottom:10px;">Ingresa la clave para registrar un incidente</div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <input id="tb-clave" type="password" placeholder="Clave..." style="flex:1;padding:10px 14px;border-radius:10px;border:1.5px solid var(--borde);font-family:'Nunito Sans',sans-serif;font-size:14px;outline:none;" onfocus="this.style.borderColor='var(--az-principal)'" onblur="this.style.borderColor='var(--borde)'" onkeydown="if(event.key==='Enter')accederTbAdmin()">
+      <button onclick="accederTbAdmin()" style="background:var(--az-oscuro);color:white;border:none;padding:10px 20px;border-radius:100px;font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">Entrar</button>
+    </div>
+    <div id="tb-clave-error" style="display:none;color:#e53935;font-size:12px;margin-top:8px;">Clave incorrecta.</div>
+  </div>
+
+  <!-- Formulario nuevo incidente (oculto por defecto) -->
+  <div id="tb-form-wrap" style="display:none;">
+  <div class="tb-form">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:15px;color:var(--az-oscuro);display:flex;align-items:center;gap:8px;">
+        <i class="fa-solid fa-plus" style="background:var(--az-principal);color:white;border-radius:8px;width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;"></i>
+        Registrar nuevo incidente
+      </div>
+      <button onclick="cerrarTbAdmin()" style="background:none;border:1.5px solid var(--borde);padding:5px 12px;border-radius:100px;font-size:11px;font-weight:700;cursor:pointer;color:var(--texto-sec);">Cerrar</button>
+    </div>
+    <div class="tb-row">
+      <div class="tb-field">
+        <label class="tb-label">Tu nombre</label>
+        <input class="tb-input" id="inc-nombre" placeholder="Ej: Juan García">
+      </div>
+      <div class="tb-field">
+        <label class="tb-label">Área</label>
+        <select class="tb-input" id="inc-area">
+          <option value="">— Selecciona —</option>
+          <option>Finanzas</option><option>Operaciones</option><option>Nómina</option>
+          <option>Comercial</option><option>Retail</option><option>Datos maestros</option><option>Otra</option>
+        </select>
+      </div>
+    </div>
+    <div class="tb-field">
+      <label class="tb-label">Título del incidente <span style="color:#e53935;">*</span></label>
+      <input class="tb-input" id="inc-titulo" placeholder="Ej: Error al ejecutar cierre de costos">
+    </div>
+    <div class="tb-field">
+      <label class="tb-label">Descripción</label>
+      <textarea class="tb-input" id="inc-desc" rows="3" placeholder="Describe qué pasó, qué esperabas ver y qué viste..."></textarea>
+    </div>
+    <div class="tb-row">
+      <div class="tb-field">
+        <label class="tb-label">Módulo SAP</label>
+        <input class="tb-input" id="inc-modulo" placeholder="Ej: MM, FI, CO, WM...">
+      </div>
+      <div class="tb-field">
+        <label class="tb-label">Prioridad</label>
+        <select class="tb-input" id="inc-prioridad">
+          <option value="Media">Media</option>
+          <option value="Alta">Alta</option>
+          <option value="Baja">Baja</option>
+        </select>
+      </div>
+    </div>
+    <button onclick="registrarIncidente()" style="background:var(--az-principal);color:white;border:none;padding:11px 24px;border-radius:100px;font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;margin-top:4px;" onmouseover="this.style.background='var(--az-oscuro)'" onmouseout="this.style.background='var(--az-principal)'">
+      <i class="fa-solid fa-paper-plane"></i> Registrar incidente
+    </button>
+    <div id="inc-msg" style="display:none;margin-top:14px;padding:10px 16px;border-radius:10px;font-size:13px;font-weight:700;"></div>
+  </div>
+  </div>
+
+  <!-- Filtros -->
+  <div class="tb-filters">
+    <button class="tb-fbtn active" onclick="filtrarTablero('todos',this)">Todos</button>
+    <button class="tb-fbtn" onclick="filtrarTablero('Abierto',this)">🔴 Abiertos</button>
+    <button class="tb-fbtn" onclick="filtrarTablero('En revisión',this)">🟡 En revisión</button>
+    <button class="tb-fbtn" onclick="filtrarTablero('Solucionado',this)">🟢 Solucionados</button>
+    <button class="tb-fbtn" onclick="filtrarTablero('Cerrado',this)">⚪ Cerrados</button>
+  </div>
+
+  <!-- Lista de incidentes -->
+  <div id="tb-lista"><div style="text-align:center;padding:40px;color:var(--texto-sec);font-size:14px;"><i class="fa-solid fa-spinner fa-spin" style="font-size:24px;display:block;margin-bottom:10px;"></i>Cargando incidentes...</div></div>
+</div>
+
 <!-- ══ INCIDENTES ══ -->
 <div id="incidentes" class="section">
   <div class="sec-header">
@@ -1782,7 +1918,146 @@ function hideTooltip() {
   clearTimeout(tooltipTimer);
 }
 
-// ══ PREGUNTAS ══
+// ══ TABLERO DE INCIDENTES ══
+let tableroFiltro = 'todos';
+let incidentesData = [];
+
+const EST_CLASSES = { 'Abierto':'est-abierto','En revisión':'est-revision','Solucionado':'est-resuelto','Cerrado':'est-cerrado' };
+const PRI_CLASSES = { 'Alta':'pri-alta','Media':'pri-media','Baja':'pri-baja' };
+
+async function cargarTablero() {
+  try {
+    const result = await window.storage.get('incidentes_v1', true);
+    incidentesData = result ? JSON.parse(result.value) : [];
+  } catch(e) { incidentesData = []; }
+  renderTablero();
+}
+
+function renderTablero() {
+  const lista = document.getElementById('tb-lista');
+  if (!lista) return;
+
+  // Stats
+  const total = incidentesData.length;
+  const abiertos = incidentesData.filter(i=>i.estado==='Abierto').length;
+  const revision = incidentesData.filter(i=>i.estado==='En revisión').length;
+  const resueltos = incidentesData.filter(i=>i.estado==='Solucionado').length;
+  document.getElementById('ts-total').textContent = total;
+  document.getElementById('ts-abierto').textContent = abiertos;
+  document.getElementById('ts-revision').textContent = revision;
+  document.getElementById('ts-resuelto').textContent = resueltos;
+
+  // Filter
+  let filtered = tableroFiltro === 'todos' ? incidentesData : incidentesData.filter(i=>i.estado===tableroFiltro);
+  filtered = [...filtered].reverse();
+
+  if (!filtered.length) {
+    lista.innerHTML = `<div style="text-align:center;padding:48px;color:var(--texto-sec);font-size:14px;">
+      <i class="fa-solid fa-inbox" style="font-size:32px;display:block;margin-bottom:12px;color:var(--az-suave);"></i>
+      No hay incidentes${tableroFiltro!=='todos'?' con este estado':''}.
+    </div>`;
+    return;
+  }
+
+  lista.innerHTML = filtered.map(inc => `
+    <div class="inc-card">
+      <div class="inc-header">
+        <span class="inc-id">#${inc.id}</span>
+        <span class="inc-titulo">${inc.titulo}</span>
+        ${inc.estado !== 'Solucionado' && inc.estado !== 'Cerrado'
+          ? `<button onclick="marcarSolucionado(${inc.id})" style="background:#e8f5e9;color:#2e7d32;border:1.5px solid #a5d6a7;padding:5px 14px;border-radius:100px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;display:inline-flex;align-items:center;gap:5px;flex-shrink:0;" onmouseover="this.style.background='#2e7d32';this.style.color='white'" onmouseout="this.style.background='#e8f5e9';this.style.color='#2e7d32'"><i class="fa-solid fa-circle-check"></i> Solucionado</button>`
+          : `<span class="inc-tag ${EST_CLASSES[inc.estado]||'est-resuelto'}" style="flex-shrink:0;">${inc.estado}</span>`
+        }
+      </div>
+      ${inc.desc ? `<div class="inc-desc">${inc.desc}</div>` : ''}
+      <div class="inc-meta">
+        ${inc.area ? `<span class="inc-tag area"><i class="fa-solid fa-building"></i> ${inc.area}</span>` : ''}
+        ${inc.modulo ? `<span class="inc-tag area"><i class="fa-solid fa-cube"></i> ${inc.modulo}</span>` : ''}
+        <span class="inc-tag ${PRI_CLASSES[inc.prioridad]||'pri-media'}">● ${inc.prioridad}</span>
+        ${inc.estado !== 'Solucionado' && inc.estado !== 'Cerrado' ? `<span class="inc-tag ${EST_CLASSES[inc.estado]||'est-abierto'}">${inc.estado}</span>` : ''}
+        ${inc.nombre ? `<span style="font-size:11px;color:var(--texto-sec);"><i class="fa-solid fa-user"></i> ${inc.nombre}</span>` : ''}
+        <span class="inc-fecha">${inc.fecha}</span>
+      </div>
+    </div>`).join('');
+}
+
+async function registrarIncidente() {
+  const titulo = document.getElementById('inc-titulo').value.trim();
+  const msg = document.getElementById('inc-msg');
+  if (!titulo) {
+    msg.style.display='block'; msg.style.background='#fff3f3'; msg.style.color='#e53935';
+    msg.innerHTML='<i class="fa-solid fa-triangle-exclamation"></i> El título es obligatorio.';
+    return;
+  }
+  const nuevo = {
+    id: Date.now() % 100000,
+    titulo,
+    nombre: document.getElementById('inc-nombre').value.trim() || 'Anónimo',
+    area:   document.getElementById('inc-area').value,
+    desc:   document.getElementById('inc-desc').value.trim(),
+    modulo: document.getElementById('inc-modulo').value.trim(),
+    prioridad: document.getElementById('inc-prioridad').value,
+    estado: 'Abierto',
+    fecha:  new Date().toLocaleString('es-CO',{dateStyle:'short',timeStyle:'short'})
+  };
+  incidentesData.push(nuevo);
+  await window.storage.set('incidentes_v1', JSON.stringify(incidentesData), true);
+  // Clear form
+  ['inc-nombre','inc-titulo','inc-desc','inc-modulo'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('inc-area').value=''; document.getElementById('inc-prioridad').value='Media';
+  msg.style.display='block'; msg.style.background='#f0faf4'; msg.style.color='#2e7d32';
+  msg.innerHTML='<i class="fa-solid fa-circle-check"></i> Incidente registrado correctamente.';
+  setTimeout(()=>msg.style.display='none', 4000);
+  renderTablero();
+}
+
+async function marcarSolucionado(id) {
+  const inc = incidentesData.find(i=>i.id===id);
+  if (inc) {
+    inc.estado = 'Solucionado';
+    await window.storage.set('incidentes_v1', JSON.stringify(incidentesData), true);
+    renderTablero();
+  }
+}
+
+async function cambiarEstado(id, nuevoEstado) {
+  const inc = incidentesData.find(i=>i.id===id);
+  if (inc) {
+    inc.estado = nuevoEstado;
+    await window.storage.set('incidentes_v1', JSON.stringify(incidentesData), true);
+    renderTablero();
+  }
+}
+
+function filtrarTablero(filtro, btn) {
+  tableroFiltro = filtro;
+  document.querySelectorAll('.tb-fbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTablero();
+}
+
+function toggleTbAdmin() {
+  const login = document.getElementById('tb-admin-login');
+  login.style.display = login.style.display === 'none' ? 'block' : 'none';
+  document.getElementById('tb-clave-error').style.display = 'none';
+}
+
+function accederTbAdmin() {
+  const clave = document.getElementById('tb-clave').value;
+  if (clave !== ADMIN_PASS) {
+    document.getElementById('tb-clave-error').style.display = 'block';
+    return;
+  }
+  document.getElementById('tb-admin-login').style.display = 'none';
+  document.getElementById('tb-clave').value = '';
+  document.getElementById('tb-form-wrap').style.display = 'block';
+}
+
+function cerrarTbAdmin() {
+  document.getElementById('tb-form-wrap').style.display = 'none';
+  document.getElementById('tb-admin-toggle').style.display = 'block';
+}
+</script>
 const ADMIN_PASS = 'ALMA2026';
 
 async function enviarPregunta() {
