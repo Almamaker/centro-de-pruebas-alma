@@ -1572,7 +1572,7 @@ function renderP(list) {
         <div class="acc-item">
           ${avatarImgSmall(p.rol)}
           <div class="ai-info">
-            <div class="ai-name">${p.nombre}</div>
+            <div class="ai-name" title="${p.nombre}" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px;cursor:default;">${p.nombre}</div>
             <div class="ai-rol">${p.rol}</div>
           </div>
           ${p.fecha ? `<span class="ai-fecha"><i class="fa-solid fa-calendar"></i> ${p.fecha}</span>` : ''}
